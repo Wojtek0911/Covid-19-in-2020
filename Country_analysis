@@ -1,0 +1,31 @@
+import datetime
+import matplotlib.pyplot as plt
+import csv
+from datetime import datetime
+from matplotlib.dates import DateFormatter, DayLocator
+
+filename = "data/owid-covid-data.csv.txt"
+with open(filename) as f:
+    reader = csv.reader(f)
+    header_row = next(reader)
+
+    for row in enumerate(header_row):
+        print(row)
+
+    for row in reader:
+        if row[2] == "Poland":
+            #print(row[3])
+            dates = row[3]
+            print(dates)
+
+    #Country_date = [datetime.datetime.strptime(d, "%Y-%m-%d").date() for d in dates]
+    Country_date = datetime.strptime(dates, '%Y-%m-%d)')
+    print(Country_date)
+    y = row[3]
+    ax = plt.gca()
+    #formatter = dates.DateFormatter('%Y-%m-%d')
+    #ax.xaxis.set_major_formetter(formatter)
+    locator = Country_date.DayLocator()
+    ax.xaxis.set_major_locator(locator)
+    #plt.plot(x,y)
+    #)plt.show()
