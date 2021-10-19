@@ -1,8 +1,7 @@
-import datetime
 import matplotlib.pyplot as plt
 import csv
 from datetime import datetime
-from matplotlib.dates import DateFormatter, DayLocator
+from matplotlib.dates import DateFormatter, DayLocator,WeekdayLocator
 
 filename = "data/owid-covid-data.csv.txt"
 with open(filename) as f:
@@ -11,21 +10,26 @@ with open(filename) as f:
 
     for row in enumerate(header_row):
         print(row)
-
+    date, cases = [], []
     for row in reader:
         if row[2] == "Poland":
             #print(row[3])
             dates = row[3]
-            print(dates)
-
+            #print(dates)
+            x = datetime.strptime(row[3],'%Y-%m-%d')
+            y = float(row[4])
+            date.append(x)
+            cases.append(y)
+            print(x, y)
     #Country_date = [datetime.datetime.strptime(d, "%Y-%m-%d").date() for d in dates]
-    Country_date = datetime.strptime(dates, '%Y-%m-%d)')
-    print(Country_date)
-    y = row[3]
-    ax = plt.gca()
-    #formatter = dates.DateFormatter('%Y-%m-%d')
-    #ax.xaxis.set_major_formetter(formatter)
-    locator = Country_date.DayLocator()
-    ax.xaxis.set_major_locator(locator)
-    #plt.plot(x,y)
-    #)plt.show()
+    #Country_date = datetime.strptime(dates, '%Y-%m-%d)')
+    #print(Country_date)\
+    fig, ax = plt.subplots()
+    #ax = plt.gca()
+    #formatter = DateFormatter('%Y-%m-%d')
+    #ax.xaxis.set_major_formatter(formatter)
+    #)locator = dates.DayLocator()
+    #ax.xaxis.set_major_locator(WeekdayLocator(byweekday=(0), interval=2))
+    fig.autofmt_xdate()
+    plt.plot(date, cases)
+    plt.show()
